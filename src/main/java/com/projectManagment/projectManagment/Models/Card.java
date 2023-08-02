@@ -21,4 +21,7 @@ public class Card {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Section section;
+    @ManyToOne
+    @JoinColumn(name = "board_id")
+    private Board board;
 }
