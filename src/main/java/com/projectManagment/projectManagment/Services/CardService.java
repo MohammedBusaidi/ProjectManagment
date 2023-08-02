@@ -1,6 +1,8 @@
 package com.projectManagment.projectManagment.Services;
 
+import com.projectManagment.projectManagment.Models.Board;
 import com.projectManagment.projectManagment.Models.Card;
+import com.projectManagment.projectManagment.Repository.BoardRepository;
 import com.projectManagment.projectManagment.Repository.CardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +14,9 @@ import java.util.List;
 public class CardService {
     @Autowired
     CardRepository cardRepository;
+    @Autowired
+    BoardRepository boardRepository;
+
     public Long createCard(Card card) {
         LocalDateTime now = LocalDateTime.now();
         card.setCreatedDate(now);
@@ -23,6 +28,7 @@ public class CardService {
     public List<Card> getAllCards() {
         return cardRepository.findAll();
     }
+
     public Card getCardById(Long cardId) {
         return cardRepository.findById(cardId).get();
     }
@@ -38,14 +44,24 @@ public class CardService {
     }
 
     public Card activateCard(Long cardId) {
-        Card card =cardRepository.findById(cardId).get();
+        Card card = cardRepository.findById(cardId).get();
         card.setActive(true);
         cardRepository.save(card);
         return card;
     }
+
     public void deActivateCard(Long boardId) {
-        Card card =cardRepository.findById(boardId).get();
+        Card card = cardRepository.findById(boardId).get();
         card.setActive(false);
         cardRepository.save(card);
+    }
+
+    public Card assignCards(Long cardId, Long boardId) {
+        LocalDateTime now = LocalDateTime.now();
+        Card card = cardRepository.findById(cardId).get();
+        Board board = boardRepository.findById(boardId).get();
+        card.setBoard(board);
+        card.setUpdatedDate(now);
+        return cardRepository.save(card);
     }
 }
