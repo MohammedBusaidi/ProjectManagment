@@ -1,5 +1,6 @@
 package com.projectManagment.projectManagment.Models;
 
+import com.projectManagment.projectManagment.BaseEntity.BaseEntity;
 import com.projectManagment.projectManagment.Enum.Section;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -12,7 +13,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Card {
+public class Card extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long cardId;
