@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class CardService {
@@ -17,5 +18,9 @@ public class CardService {
         card.setActive(true);
         cardRepository.save(card);
         return card.getCardId();
+    }
+
+    public List<Card> getAllCards() {
+        return cardRepository.findAll();
     }
 }
