@@ -47,4 +47,23 @@ public class BoardController extends GenericController {
                 "Board has been created successfully",
                 CREATED);
     }
+
+    @PostMapping("/activate/{id}")
+    public ResponseEntity<APICustomResponse> activateBoard(
+            @PathVariable("id") Long boardId) {
+        Board board = boardService.activateBoard(boardId);
+        return createResponse(
+                Map.of("board", board),
+                "Board with ID: " + boardId + " has been Re-Activated",
+                CREATED);
+    }
+    @DeleteMapping("/deActivate/{id}")
+    public ResponseEntity<APICustomResponse> deActivateBoard(
+            @PathVariable("id") Long boardId) {
+        boardService.deActivateBoard(boardId);
+        return createResponse(
+                null,
+                "Board with ID: " + boardId + " has been De-Activated",
+                OK);
+    }
 }
