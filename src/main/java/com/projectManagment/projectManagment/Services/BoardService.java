@@ -29,4 +29,15 @@ public class BoardService {
     public Board getBoardById(Long boardId) {
         return boardRepository.findById(boardId).get();
     }
+    public Board activateBoard(Long boardId) {
+        Board board =boardRepository.findById(boardId).get();
+        board.setActive(true);
+        boardRepository.save(board);
+        return board;
+    }
+    public void deActivateBoard(Long boardId) {
+        Board board =boardRepository.findById(boardId).get();
+        board.setActive(false);
+        boardRepository.save(board);
+    }
 }
