@@ -1,5 +1,6 @@
 package com.projectManagment.projectManagment.Models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.projectManagment.projectManagment.BaseEntity.BaseEntity;
 import com.projectManagment.projectManagment.Enum.Section;
 import jakarta.persistence.*;
@@ -22,6 +23,7 @@ public class Card extends BaseEntity {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Section section;
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "board_id")
     private Board board;
