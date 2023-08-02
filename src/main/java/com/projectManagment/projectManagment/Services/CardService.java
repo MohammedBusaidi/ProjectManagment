@@ -36,4 +36,16 @@ public class CardService {
         updateCard.setBoard(card.getBoard());
         return cardRepository.save(card);
     }
+
+    public Card activateCard(Long cardId) {
+        Card card =cardRepository.findById(cardId).get();
+        card.setActive(true);
+        cardRepository.save(card);
+        return card;
+    }
+    public void deActivateCard(Long boardId) {
+        Card card =cardRepository.findById(boardId).get();
+        card.setActive(false);
+        cardRepository.save(card);
+    }
 }
