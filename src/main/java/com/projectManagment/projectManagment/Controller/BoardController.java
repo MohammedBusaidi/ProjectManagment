@@ -37,4 +37,14 @@ public class BoardController extends GenericController {
                 "Board has been fetched successfully",
                 OK);
     }
+
+    @PostMapping
+    public ResponseEntity<?> createBoard(
+            @RequestBody Board board) {
+        Long boardId = boardService.createBoard(board);
+        return createResponse(
+                Map.of("board_Id", boardId),
+                "Board has been created successfully",
+                CREATED);
+    }
 }
