@@ -15,4 +15,11 @@ public class BoardService {
     @Autowired
     CardRepository cardRepository;
 
+    public Long createBoard(Board board) {
+        LocalDateTime now = LocalDateTime.now();
+        board.setCreatedDate(now);
+        board.setActive(true);
+        boardRepository.save(board);
+        return board.getBoardId();
+    }
 }
