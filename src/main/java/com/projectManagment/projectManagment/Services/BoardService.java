@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class BoardService {
@@ -21,5 +22,8 @@ public class BoardService {
         board.setActive(true);
         boardRepository.save(board);
         return board.getBoardId();
+    }
+    public List<Board> getAllBoards() {
+        return boardRepository.findAll();
     }
 }
