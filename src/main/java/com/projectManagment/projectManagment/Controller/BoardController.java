@@ -28,7 +28,7 @@ public class BoardController extends GenericController {
                 OK);
     }
 
-    @GetMapping("{id")
+    @GetMapping("{id}")
     public ResponseEntity<APICustomResponse> getBoardById(
             @PathVariable("id") Long boardId) {
         Board board = boardService.getBoardById(boardId);

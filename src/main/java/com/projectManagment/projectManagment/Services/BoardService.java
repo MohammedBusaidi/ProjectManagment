@@ -13,8 +13,6 @@ import java.util.List;
 public class BoardService {
     @Autowired
     BoardRepository boardRepository;
-    @Autowired
-    CardRepository cardRepository;
 
     public Long createBoard(Board board) {
         LocalDateTime now = LocalDateTime.now();
