@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
 
+import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
 
 @RestController
@@ -24,6 +25,16 @@ public class BoardController extends GenericController {
         return createResponse(
                 Map.of("boards", boards),
                 "List of all boards",
+                OK);
+    }
+
+    @GetMapping("{id")
+    public ResponseEntity<APICustomResponse> getBoardById(
+            @PathVariable("id") Long boardId) {
+        Board board = boardService.getBoardById(boardId);
+        return createResponse(
+                Map.of("board", board),
+                "Board has been fetched successfully",
                 OK);
     }
 }
