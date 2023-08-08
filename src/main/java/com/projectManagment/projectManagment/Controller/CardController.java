@@ -60,6 +60,17 @@ public class CardController extends GenericController {
                 "Card has been assigned successfully",
                 OK);
     }
+    @PutMapping("{cardId}/update")
+    public ResponseEntity<APICustomResponse> updateCard(
+            @PathVariable("id") Long cardId,
+            @RequestBody Card card
+    ) {
+        cardService.updateCard(cardId, card);
+        return createResponse(
+                Map.of("card_Id", cardId),
+                "Card has been updated successfully",
+                OK);
+    }
 
     @PostMapping("/activate/{id}")
     public ResponseEntity<APICustomResponse> activateCard(

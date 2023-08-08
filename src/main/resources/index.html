@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Project Management</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+        <!-- Header with title and input for updating the title -->
+        <div class="header">
+            <h1 id="boardTitle">Your Board Title</h1>
+            <input type="text" id="updateTitleInput" placeholder="Enter new title">
+            <button id="updateTitleButton">Update Title</button>
+        </div>
+    </header>
+    <main>
+        <!-- Trello board body with sections and cards -->
+        <div class="trello-board">
+            <div class="section" id="sectionToDo">
+                <h2>To Do</h2>
+                <!-- Cards for the To Do section -->
+                <div class="card">
+                    <h3>Task 1</h3>
+                    <p>This is the description for Task 1.</p>
+                </div>
+            </div>
+            <div class="section" id="sectionInProgress">
+                <h2>In Progress</h2>
+                <!-- Cards for the In Progress section -->
+            </div>
+            <div class="section" id="sectionDone">
+                <h2>Done</h2>
+                <!-- Cards for the Done section -->
+            </div>
+        </div>
+    </main>
+    <aside>
+        <!-- Control panel for creating, updating, and deleting cards -->
+        <div class="control-panel">
+            <h2>Control Panel</h2>
+            <form id="createCardForm">
+                <label for="title">Title:</label>
+                <input type="text" id="title" required>
+                <label for="description">Description:</label>
+                <input type="text" id="description" required>
+                <label for="section">Section:</label>
+                <select id="section" required>
+                    <option value="1">To Do</option>
+                    <option value="2">In Progress</option>
+                    <option value="3">Done</option>
+                </select>
+                <button type="submit">Create Card</button>
+            </form>
+            <form id="deleteCardForm">
+                <label for="deleteCard">Select Card to Delete:</label>
+                <!-- Dropdown with options to select a card to delete -->
+                <select id="deleteCard"></select>
+                <button type="submit">Delete Card</button>
+            </form>
+            <form id="updateCardForm">
+                <label for="updateCard">Select Card to Update:</label>
+                <!-- Dropdown with options to select a card to update -->
+                <select id="updateCard"></select>
+                <label for="updateTitle">Title:</label>
+                <input type="text" id="updateTitle" required>
+                <label for="updateDescription">Description:</label>
+                <input type="text" id="updateDescription" required>
+                <label for="updateSection">Section:</label>
+                <select id="updateSection" required>
+                    <option value="1">To Do</option>
+                    <option value="2">In Progress</option>
+                    <option value="3">Done</option>
+                </select>
+                <button type="submit">Update Card</button>
+            </form>
+        </div>
+    </aside>
+    <script>
+        // Add your JavaScript code here
+    </script>
+</body>
+</html>
