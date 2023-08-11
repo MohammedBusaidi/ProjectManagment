@@ -57,6 +57,7 @@ public class BoardController extends GenericController {
                 "Board with ID: " + boardId + " has been Re-Activated",
                 CREATED);
     }
+
     @DeleteMapping("/deActivate/{id}")
     public ResponseEntity<APICustomResponse> deActivateBoard(
             @PathVariable("id") Long boardId) {
@@ -66,4 +67,15 @@ public class BoardController extends GenericController {
                 "Board with ID: " + boardId + " has been De-Activated",
                 OK);
     }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<APICustomResponse> deleteBoard(
+            @PathVariable("id") Long boardId) {
+        boardService.deleteBoard(boardId);
+        return createResponse(
+                null,
+                "Board with ID: " + boardId + " has been Deleted",
+                OK);
+    }
 }
+

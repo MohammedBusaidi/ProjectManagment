@@ -1,7 +1,6 @@
 package com.projectManagment.projectManagment.Controller;
 
 import com.projectManagment.projectManagment.Models.APICustomResponse;
-import com.projectManagment.projectManagment.Models.Board;
 import com.projectManagment.projectManagment.Models.Card;
 import com.projectManagment.projectManagment.Services.CardService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +14,7 @@ import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
 
 @RestController
-@RequestMapping("api/cards")
+@RequestMapping("api/boards/{boardId}/cards")
 public class CardController extends GenericController {
     @Autowired
     CardService cardService;
@@ -29,40 +28,32 @@ public class CardController extends GenericController {
                 OK);
     }
 
-    @GetMapping("{id}")
+    @GetMapping("{cardId}")
     public ResponseEntity<APICustomResponse> getCardById(
-            @PathVariable("id") Long cardId) {
+            @PathVariable("cardId") Long cardId) {
         Card card = cardService.getCardById(cardId);
         return createResponse(
-                Map.of("board", card),
-                "Board has been fetched successfully",
+                Map.of("Card", card),
+                "Card has been fetched successfully",
                 OK);
     }
 
     @PostMapping
     public ResponseEntity<?> createCard(
-            @RequestBody Card card) {
-        Long cardId = cardService.createCard(card);
+            @PathVariable("boardId") Long boardId,
+            @RequestBody Card card
+            ) {
+        Long createdCard = cardService.createCard(boardId, card);
+
         return createResponse(
-                Map.of("card_Id", cardId),
+                Map.of("card_Id", createdCard),
                 "Card has been created successfully",
                 CREATED);
     }
 
-    @PutMapping("{cardId}/assign/{boardId}")
-    public ResponseEntity<APICustomResponse> assignCard(
-            @PathVariable Long cardId,
-            @PathVariable Long boardId
-    ) {
-        cardService.assignCards(cardId, boardId);
-        return createResponse(
-                Map.of("card_Id", cardId),
-                "Card has been assigned successfully",
-                OK);
-    }
-    @PutMapping("{cardId}/update")
+    @PutMapping("{cardId}")
     public ResponseEntity<APICustomResponse> updateCard(
-            @PathVariable("id") Long cardId,
+            @PathVariable("cardId") Long cardId,
             @RequestBody Card card
     ) {
         cardService.updateCard(cardId, card);
@@ -72,9 +63,9 @@ public class CardController extends GenericController {
                 OK);
     }
 
-    @PostMapping("/activate/{id}")
+    @PostMapping("activate/{cardId}")
     public ResponseEntity<APICustomResponse> activateCard(
-            @PathVariable("id") Long cardId) {
+            @PathVariable("cardId") Long cardId) {
         Card card = cardService.activateCard(cardId);
         return createResponse(
                 Map.of("board", card),
@@ -82,13 +73,23 @@ public class CardController extends GenericController {
                 CREATED);
     }
 
-    @DeleteMapping("/deActivate/{id}")
+    @DeleteMapping("deActivate/{cardId}")
     public ResponseEntity<APICustomResponse> deActivateCard(
-            @PathVariable("id") Long cardId) {
+            @PathVariable("cardId") Long cardId) {
         cardService.deActivateCard(cardId);
         return createResponse(
                 null,
                 "Card with ID: " + cardId + " has been De-Activated",
+                OK);
+    }
+
+    @DeleteMapping("{cardId}")
+    public ResponseEntity<APICustomResponse> deleteCard(
+            @PathVariable("cardId") Long cardId) {
+        cardService.deleteCard(cardId);
+        return createResponse(
+                null,
+                "Card with ID: " + cardId + " has been Deleted",
                 OK);
     }
 }

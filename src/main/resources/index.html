@@ -1,84 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Project Management</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trello Board</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
     <header>
-        <!-- Header with title and input for updating the title -->
         <div class="header">
             <h1 id="boardTitle">Your Board Title</h1>
-            <input type="text" id="updateTitleInput" placeholder="Enter new title">
-            <button id="updateTitleButton">Update Title</button>
+            <input type="text" id="updateTitleInput" placeholder="Enter new title" aria-label="Update Title Input">
+            <button id="updateTitleButton" aria-label="Update Title Button" onclick="updateTitleOfTheBoard()">Update Title</button>
+        </div>
+        <div class="header">
+            <h1 id="boardId">Your Board ID</h1>
+            <input type="text" id="headerBoardIdInput" placeholder="Type the board ID" aria-label="Board ID Input">
+            <button id="getBoardButton" aria-label="Get the Board" onclick="changeBoard()">Get the Board</button>
         </div>
     </header>
     <main>
-        <!-- Trello board body with sections and cards -->
         <div class="trello-board">
-            <div class="section" id="sectionToDo">
+            
+            <div class="section" >
                 <h2>To Do</h2>
-                <!-- Cards for the To Do section -->
-                <div class="card">
-                    <h3>Task 1</h3>
-                    <p>This is the description for Task 1.</p>
+                <div id="sectionToDo">
+                    <!-- <div class="card">
+                        <h3>Task 1</h3>
+                        <p>This is the description for Task 1.</p>
+                    </div>
+                    <div class="card">
+                        <h3>Task 2</h3>
+                        <p>This is the description for Task 2.</p>
+                    </div> -->
                 </div>
             </div>
-            <div class="section" id="sectionInProgress">
+            <div class="section">
                 <h2>In Progress</h2>
-                <!-- Cards for the In Progress section -->
+                <div id="sectionInProgress">
+                </div>
             </div>
-            <div class="section" id="sectionDone">
+            <div class="section" >
                 <h2>Done</h2>
-                <!-- Cards for the Done section -->
+                <div id="sectionDone">
+                    
+                </div>
             </div>
         </div>
     </main>
     <aside>
-        <!-- Control panel for creating, updating, and deleting cards -->
         <div class="control-panel">
             <h2>Control Panel</h2>
-            <form id="createCardForm">
-                <label for="title">Title:</label>
-                <input type="text" id="title" required>
-                <label for="description">Description:</label>
-                <input type="text" id="description" required>
-                <label for="section">Section:</label>
-                <select id="section" required>
-                    <option value="1">To Do</option>
-                    <option value="2">In Progress</option>
-                    <option value="3">Done</option>
-                </select>
-                <button type="submit">Create Card</button>
-            </form>
-            <form id="deleteCardForm">
-                <label for="deleteCard">Select Card to Delete:</label>
-                <!-- Dropdown with options to select a card to delete -->
-                <select id="deleteCard"></select>
-                <button type="submit">Delete Card</button>
-            </form>
-            <form id="updateCardForm">
-                <label for="updateCard">Select Card to Update:</label>
-                <!-- Dropdown with options to select a card to update -->
-                <select id="updateCard"></select>
-                <label for="updateTitle">Title:</label>
-                <input type="text" id="updateTitle" required>
-                <label for="updateDescription">Description:</label>
-                <input type="text" id="updateDescription" required>
-                <label for="updateSection">Section:</label>
-                <select id="updateSection" required>
-                    <option value="1">To Do</option>
-                    <option value="2">In Progress</option>
-                    <option value="3">Done</option>
-                </select>
-                <button type="submit">Update Card</button>
-            </form>
+            <div class="control-forms">
+                <div class="control-method">
+                    <h3>Create Card</h3>
+                    <form id="createCardForm">
+                        <label for="title">Title:</label>
+                        <input type="text" id="title" required aria-label="Title Input">
+                        <label for="description">Description:</label>
+                        <input type="text" id="description" required aria-label="Description Input">
+                        <label for="section">Section:</label>
+                        <select id="section" required aria-label="Section Select">
+                            <option value="1">To Do</option>
+                            <option value="2">In Progress</option>
+                            <option value="3">Done</option>
+                        </select>
+                        <button type="submit" aria-label="Create Card Button" onclick="createCardFunction()">Create
+                            Card</button>
+                    </form>
+                </div>
+                <div class="control-method">
+                    <h3>Delete Card</h3>
+                    <form id="deleteCardForm">
+                        <label for="deleteCard">Select Card to Delete: </label>
+                        <select id="deleteCard" aria-label="Delete Card Select" required>
+                            <!-- <option value="" disabled selected >Select an option</option> -->
+                            <!-- <option value="test">Test</option> -->
+                        </select>
+                        <button type="button" aria-label="Delete Card Button" onclick="deleteCardFunction()">Delete
+                            Card</button>
+                    </form>
+                </div>
+                <div class="control-method">
+                    <h3>Update Card</h3>
+                    <form id="updateCardForm">
+                        <label for="updateCard">Select Card to Update:</label>
+                        <select id="updateCard" aria-label="Update Card Select">
+                            
+
+                        </select>
+                        
+                        <label for="updateTitle">Title:</label>
+                        <input type="text" id="updateTitle" required aria-label="Update Title Input">
+                        <label for="updateDescription">Description:</label>
+                        <input type="text" id="updateDescription" required aria-label="Update Description Input">
+                        <label for="updateSection">Section:</label>
+                        <select id="updateSection" required aria-label="Update Section Select">
+                            <option value="1">To Do</option>
+                            <option value="2">In Progress</option>
+                            <option value="3">Done</option>
+                        </select>
+                        <button type="submit" aria-label="Update Card Button" onclick="updateCardFunction()">Update Card</button>
+                    </form>
+                </div>
+            </div>
         </div>
     </aside>
-    <script>
-        // Add your JavaScript code here
-    </script>
+    <script src="script.js"></script>
 </body>
+
 </html>

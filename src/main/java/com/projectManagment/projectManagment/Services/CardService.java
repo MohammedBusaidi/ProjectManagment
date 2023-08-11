@@ -4,6 +4,7 @@ import com.projectManagment.projectManagment.Models.Board;
 import com.projectManagment.projectManagment.Models.Card;
 import com.projectManagment.projectManagment.Repository.BoardRepository;
 import com.projectManagment.projectManagment.Repository.CardRepository;
+import org.antlr.v4.runtime.misc.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,12 +18,19 @@ public class CardService {
     @Autowired
     BoardRepository boardRepository;
 
-    public Long createCard(Card card) {
+    public Long createCard(Long boardId,Card card) {
         LocalDateTime now = LocalDateTime.now();
-        card.setCreatedDate(now);
-        card.setActive(true);
-        cardRepository.save(card);
-        return card.getCardId();
+        Board board = boardRepository.findById(boardId).get();
+        Card cardInstance = new Card();
+        cardInstance.setCreatedDate(now);
+        cardInstance.setActive(true);
+        cardInstance.setBoard(board);
+        cardInstance.setCardId(card.getCardId());
+        cardInstance.setTitle(card.getTitle());
+        cardInstance.setDescription(card.getDescription());
+        cardInstance.setSection(card.getSection());
+        cardRepository.save(cardInstance);
+        return cardInstance.getCardId();
     }
 
     public List<Card> getAllCards() {
@@ -56,12 +64,9 @@ public class CardService {
         cardRepository.save(card);
     }
 
-    public Card assignCards(Long cardId, Long boardId) {
-        LocalDateTime now = LocalDateTime.now();
-        Card card = cardRepository.findById(cardId).get();
-        Board board = boardRepository.findById(boardId).get();
-        card.setBoard(board);
-        card.setUpdatedDate(now);
-        return cardRepository.save(card);
+    public void deleteCard(Long cardId) {
+        Card card = cardRepository
+                .findById(cardId).get();
+        cardRepository.delete(card);
     }
 }
