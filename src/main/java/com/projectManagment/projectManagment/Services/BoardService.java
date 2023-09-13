@@ -29,6 +29,12 @@ public class BoardService {
     public Board getBoardById(Long boardId) {
         return boardRepository.findById(boardId).get();
     }
+    public Board updateBoard(Long boardId, Board board) {
+        LocalDateTime now = LocalDateTime.now();
+        Board updateBoard = boardRepository.findById(boardId).get();
+        updateBoard.setTitle(board.getTitle());
+        return boardRepository.save(updateBoard);
+    }
 
     public Board activateBoard(Long boardId) {
         Board board = boardRepository.findById(boardId).get();

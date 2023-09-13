@@ -44,11 +44,12 @@ public class CardService {
     public Card updateCard(Long cardId, Card card) {
         LocalDateTime now = LocalDateTime.now();
         Card updateCard = cardRepository.findById(cardId).get();
+        updateCard.setUpdatedDate(now);
         updateCard.setTitle(card.getTitle());
         updateCard.setSection(card.getSection());
         updateCard.setDescription(card.getDescription());
         updateCard.setBoard(card.getBoard());
-        return cardRepository.save(card);
+        return cardRepository.save(updateCard);
     }
 
     public Card activateCard(Long cardId) {
