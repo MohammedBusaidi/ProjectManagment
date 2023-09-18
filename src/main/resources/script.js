@@ -15,7 +15,7 @@ function getCards() {
     redirect: "follow",
   };
 
-  fetch("http://localhost:8080/api/boards/1/cards", requestOptions)
+  fetch(`http://${host}/api/boards/1/cards`, requestOptions)
     .then((response) => response.json())
     .then((parsedResponse) => {
       parsedResponse.data.cards.forEach((card) => {

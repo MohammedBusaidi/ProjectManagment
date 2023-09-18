@@ -4,7 +4,7 @@ WORKDIR /app
 
 RUN apk add --no-cache maven
 
-COPY src /app
+COPY . /app
 
 RUN mvn clean install -DskipTests
 
