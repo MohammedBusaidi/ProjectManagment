@@ -1,30 +1,30 @@
 version: '3'
 
 services:
-  gdb:
+  db:
     image: mysql:8.0.33
     ports:
       - "9090:3306"
     environment:
-      MYSQL_ROOT_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: qwerty
       MYSQL_DATABASE: ProjectManagement
       MYSQL_TCP_PORT: 3306
     restart: on-failure
 
-  gapi:
-    build: src
+  api:
+    build: .
     ports:
       - "8080:8080"
     restart: on-failure
     depends_on:
-      - gdb
+      - db
 
-  gui:
+  ui:
     image: nginx
     ports:
       - "80:80"
     volumes:
-      - ./src/main/resources:/usr/share/nginx/html
+      -  ./src/main/resources/static:/usr/share/nginx/html
     restart: on-failure
     depends_on:
-      - gapi
+      - api
