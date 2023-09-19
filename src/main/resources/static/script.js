@@ -1,6 +1,6 @@
 const host = window.location.host;
 let apiBoardID = 1;
-let url = "http://" + "localhost:8080" + "/api/boards/" + apiBoardID + "/cards";
+let url = "http://" + host + "/api/boards/" + apiBoardID + "/cards";
 
 // Get All Cards
 function getCards() {
