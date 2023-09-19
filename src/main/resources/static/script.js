@@ -2,6 +2,45 @@ const host = window.location.host;
 let apiBoardID = 1;
 let url = "http://" + host + "/api/boards/" + apiBoardID + "/cards";
 
+var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+
+var boardTitle = "Sprint Board 2023.1";
+
+// First, make a GET request to check if the board already exists
+var getOptions = {
+    method: 'GET',
+    headers: myHeaders,
+    redirect: 'follow'
+};
+
+fetch(`http://${host}/api/boards?title=` + encodeURIComponent(boardTitle), getOptions)
+    .then(response => response.json())
+    .then(data => {
+        // Assuming your API returns an array of boards matching the title
+        if (data.length > 0) {
+            console.log("Board already exists:", data[0]);
+        } else {
+            // If the board doesn't exist, proceed with the POST request
+            var raw = JSON.stringify({
+                "title": boardTitle
+            });
+
+            var postOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow'
+            };
+
+            fetch(`http://${host}/api/boards`, postOptions)
+                .then(response => response.text())
+                .then(result => console.log(result))
+                .catch(error => console.log('error', error));
+        }
+    })
+    .catch(error => console.log('error', error));
+
 // Get All Cards
 function getCards() {
   const deleteCardDropbox = document.getElementById("deleteCard");
