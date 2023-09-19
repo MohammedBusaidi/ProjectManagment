@@ -6,7 +6,7 @@ services:
     ports:
       - "9090:3306"
     environment:
-      MYSQL_ROOT_PASSWORD: qwerty
+      MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: ProjectManagement
       MYSQL_TCP_PORT: 3306
     restart: on-failure
